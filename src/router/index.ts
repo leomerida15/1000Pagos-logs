@@ -1,15 +1,10 @@
 import { Application } from 'express';
+import { Router } from 'express';
+import { logs } from '../controllers/inddex';
 
-// rputers
-import auth from './auth';
-import FM from './fm';
-import global from './global';
-import Socket from './web';
-//
-export default (app: Application) => {
-	auth(app);
-	global(app);
-	FM(app);
-	//
-	Socket(app);
-};
+// routers
+const logsRoutes: Router = Router();
+
+logsRoutes.route('/log').post(logs);
+
+export default (app: Application) => app.use(logsRoutes);
