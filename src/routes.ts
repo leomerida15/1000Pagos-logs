@@ -6,6 +6,6 @@ export const Routes: any[] = [
 		method: 'post',
 		route: '/log',
 		controller: LogsControllers,
-		action: 'allHistory',
+		action: 'create',
 	},
 ];
