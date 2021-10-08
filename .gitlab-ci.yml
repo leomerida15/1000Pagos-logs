@@ -10,28 +10,33 @@ before_script:
   - cat ~/.ssh/key.pem
   - echo $IP_REMOTE
   - which ssh-agent
-
-#deploy_dev:
+ 
+#deploy_dev: 
 #  stage: deploy
-#  script:
-
-#  - ssh  -i ~/.ssh/key.pem $USUARIO@$IP_REMOTE " cd $DOCUMENT_ROOT/ && sudo yarn "
-#  - ssh  -i ~/.ssh/key.pem $USUARIO@$IP_REMOTE " cd $DOCUMENT_ROOT && sudo pm2 restart backoffice  "
-#  only:
+#  script: 
+     
+#    - ssh  -i ~/.ssh/key.pem $USUARIO@$IP_REMOTE " cd $DOCUMENT_ROOT/ && sudo  git  stash && sudo git  stash pop && sudo git reset --hard "
+#    - ssh  -i ~/.ssh/key.pem $USUARIO@$IP_REMOTE " cd $DOCUMENT_ROOT/ && sudo git checkout dev && sudo git pull --rebase --autostash "
+#    - ssh  -i ~/.ssh/key.pem $USUARIO@$IP_REMOTE " cd $DOCUMENT_ROOT/ && sudo npm install && sudo npm audit fix "
+#    - ssh  -i ~/.ssh/key.pem $USUARIO@$IP_REMOTE " cd $DOCUMENT_ROOT && sudo pm2 restart api-reportes  "
+#  only: 
 #    - dev
-deploy_qa:
+deploy_qa: 
   stage: deploy
-  script:
-    - ssh  -i ~/.ssh/key.pem $USUARIO@$IP_REMOTEQA " cd $DOCUMENT_ROOT/ && sudo git checkout qa-back-aprobacion && sudo git pull "
-    - ssh  -i ~/.ssh/key.pem $USUARIO@$IP_REMOTEQA " cd $DOCUMENT_ROOT/ && sudo yarn "
-    - ssh  -i ~/.ssh/key.pem $USUARIO@$IP_REMOTEQA " cd $DOCUMENT_ROOT && sudo pm2 restart backoffice  "
-  only:
-    - qa-back-aprobacion
-#deploy_produccion:
+  script: 
+    #- ssh  -i ~/.ssh/key.pem $USUARIO@$IP_REMOTEQA " cd $DOCUMENT_ROOT/ && sudo  git  stash && sudo git  stash pop && sudo git reset --hard "
+    - ssh  -i ~/.ssh/key.pem $USUARIO@$IP_REMOTEQA " cd $DOCUMENT_ROOT/ && sudo git checkout qa && sudo git pull --rebase --autostash "
+    #- ssh  -i ~/.ssh/key.pem $USUARIO@$IP_REMOTEQA " cd $DOCUMENT_ROOT/ && sudo npm install && sudo npm audit fix "
+    - ssh  -i ~/.ssh/key.pem $USUARIO@$IP_REMOTEQA " cd $DOCUMENT_ROOT && sudo pm2 restart api-reportes  "
+  only: 
+    - qa
+#deploy_produccion: 
 #  stage: deploy
-#  script:
-
-#    - ssh  -i ~/.ssh/key.pem $USUARIO@$IP_REMOTEPRO " cd $DOCUMENT_ROOT/ && sudo yarn "
-#    - ssh  -i ~/.ssh/key.pem $USUARIO@$IP_REMOTEPRO " cd $DOCUMENT_ROOT && sudo pm2 restart backoffice  "
-#  only:
-#    - master
+#  script: 
+     
+#    - ssh  -i ~/.ssh/key.pem $USUARIO@$IP_REMOTEPRO " sudo pm2 delete 0 " 
+#    - ssh  -i ~/.ssh/key.pem $USUARIO@$IP_REMOTEPRO " cd $DOCUMENT_ROOT/ && sudo git checkout master && sudo git pull --rebase --autostash "
+#    - ssh  -i ~/.ssh/key.pem $USUARIO@$IP_REMOTEPRO " cd $DOCUMENT_ROOT/ && sudo npm install && sudo npm audit fix "
+#    - ssh  -i ~/.ssh/key.pem $USUARIO@$IP_REMOTEPRO " cd $DOCUMENT_ROOT && sudo pm2 --name api start npm -- start  "
+#  only: 
+#    - master        

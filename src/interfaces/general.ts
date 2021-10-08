@@ -19,3 +19,10 @@ export interface pParroquia {
 export interface pCiudad {
 	id_estado: string | number;
 }
+
+export interface Route {
+	method: string;
+	route: string;
+	controller: any;
+	action: string;
+}

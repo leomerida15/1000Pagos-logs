@@ -19,12 +19,10 @@ export default (err: any, req: Request, res: Response, next: NextFunction) => {
 	const code_descript: string = descripts[code] ? descripts[code] : `${code}`;
 
 	// create obj for Response
-	const obj = { status: false, message, code, code_descript, path: req.originalUrl, method: req.method };
+	const obj = { message, code, code_descript, path: req.originalUrl, method: req.method };
 
 	// to write Response in the consol
-	const length = obj.message.length + obj.code_descript.length + obj.path.length;
-	if (length < 80) console.table([obj]);
-	else console.log(obj);
+	console.log(obj);
 
 	// Response
 	res.status(code).json(obj);

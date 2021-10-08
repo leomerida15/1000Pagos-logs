@@ -1,13 +1,9 @@
-FROM node
+FROM node:16.6.2
 
 WORKDIR /app
 
-COPY *.json ./
+COPY package.json ormconfig.json yorm.lock tsconfig.json .gitignore ./
 
-RUN npm install -D
+RUN yarn -d
 
-COPY . . 
-
-EXPOSE 5050
-
-CMD ["npm", "start"]
+CMD ["yarn", "start"]
