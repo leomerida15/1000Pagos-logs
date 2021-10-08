@@ -1,4 +1,13 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+	Column,
+	CreateDateColumn,
+	Entity,
+	JoinColumn,
+	ManyToOne,
+	OneToMany,
+	PrimaryGeneratedColumn,
+} from 'typeorm';
+import fm_origin_logs from './fm_origin_log';
 
 @Entity()
 export class fm_logs {
@@ -9,8 +18,14 @@ export class fm_logs {
 	descript!: string;
 
 	@Column()
-	ip!: string;
+	email!: string;
+
+	@ManyToOne(() => fm_origin_logs, (fm_origin_logs) => fm_origin_logs.logs)
+	@JoinColumn({ name: 'id_origin_logs' })
+	id_origin_logs!: number;
 
 	@CreateDateColumn()
 	createdAt?: string;
 }
+
+// `[method:POST]::[path:/new]::[msg:registro de usuario]`;
