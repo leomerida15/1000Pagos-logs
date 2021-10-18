@@ -1,16 +1,8 @@
-import {
-	Column,
-	CreateDateColumn,
-	Entity,
-	JoinColumn,
-	ManyToOne,
-	OneToMany,
-	PrimaryGeneratedColumn,
-} from 'typeorm';
-import fm_origin_logs from './fm_origin_log';
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import origin_logs from './origin_log';
 
 @Entity()
-export class fm_logs {
+export default class General_Logs {
 	@PrimaryGeneratedColumn()
 	id?: number;
 
@@ -20,7 +12,7 @@ export class fm_logs {
 	@Column()
 	email!: string;
 
-	@ManyToOne(() => fm_origin_logs, (fm_origin_logs) => fm_origin_logs.logs)
+	@ManyToOne(() => origin_logs, (origin_logs) => origin_logs.General_Logs)
 	@JoinColumn({ name: 'id_origin_logs' })
 	id_origin_logs!: number;
 
